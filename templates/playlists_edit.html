@@ -1,0 +1,31 @@
+<!-- templates/playlists_edit.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' action='/playlists/{{ playlist._id }}'>
+    <fieldset>
+    <legend>Edit Playlist</legend>
+    <!-- TITLE -->
+    <p>
+        <label for='title'>Title</label><br>
+        <input type='text' name='title' value='{{ playlist.title }}' />
+    </p>
+    <p>
+        <label for='description'>Description</label><br>
+        <input type='text' name='description' value='{{ playlist.description }}' />
+    </p>
+    </fieldset>
+    <p>
+        <label for='video-ids'>Videos</label><br>
+        <p>Add/edit the ID of the videos you want to include in your playlist. Separate with a newline.</p>
+        <textarea id='video-ids' name='video_ids' rows=10>
+            {{ '\n'.join(playlist.video_ids) }}
+        </textarea>
+    </p>
+
+    <!-- BUTTON -->
+    <p>
+        <button type='submit'>Edit Playlist</button>
+    </p>
+</form>
+{% endblock %}
