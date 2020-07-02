@@ -7,6 +7,7 @@ For Windows, run mongo daemon: mongod --dbpath C:/data/db
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import os
 
 
 def video_url_creator(id_lst):
@@ -17,8 +18,9 @@ def video_url_creator(id_lst):
         videos.append(video)
     return videos
 
-client = MongoClient()
-db = client.Playlister
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
+client = MongoClient(host=host)
+db = client.get_default_database()
 playlists = db.playlists
 
 app = Flask(__name__)
